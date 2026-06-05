@@ -20,7 +20,7 @@ search_tool = TavilySearch(
 agent = create_react_agent(
     model = llm,
     tools = [search_tool],
-    prompt = SystemMessage("""
+    prompt = SystemMessage(content="""
                            You are an expert research assistant. When given a research topic:
 
                             1. Break it into 3-4 specific search queries
