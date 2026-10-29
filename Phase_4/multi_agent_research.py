@@ -43,10 +43,12 @@ def planner_node(state : ResearchState):
     return state
 
 def researcher_node(state : ResearchState):
+    print("🔍 Researcher searching...") 
     response = research_agent.invoke({'messages': [('user', f'Research this: {state["topic"]}')]})
     return {"research": response["messages"][-1].content}
 
 def writer_node(state: ResearchState):
+    print(f"✍️ Writer writing report (revision {state['revisions'] + 1})...")
     response = llm.invoke([
         SystemMessage(content="""You are a professional report writer.
         Write a structured report with:
@@ -63,6 +65,7 @@ def writer_node(state: ResearchState):
     }
 
 def critic_node(state: ResearchState):
+    print("🔎 Critic reviewing...")
     response = llm.invoke([
         SystemMessage(content="""You are a strict report reviewer.
             Review the report for quality, completeness and accuracy.
